@@ -28,7 +28,7 @@ export class HorseResolver {
   }
 
   @Mutation(() => Horse)
-  createHorse(@Arg("input") input: HorseInput): Promise<Horse> {
+  async createHorse(@Arg("input") input: HorseInput): Promise<Horse> {
     return Horse.create({ ...input }).save();
   }
 

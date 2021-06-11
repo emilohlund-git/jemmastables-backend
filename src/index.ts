@@ -9,12 +9,13 @@ import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
 import { COOKIE_NAME, __prod__ } from "./constants";
+import { Appointment } from "./entities/Appointment";
 import { Horse } from "./entities/Horse";
 import { User } from "./entities/User";
+import { AppointmentResolver } from "./resolvers/appointment";
 import { HorseResolver } from "./resolvers/horse";
 import { UserResolver } from "./resolvers/user";
 
-//refresh
 const main = async () => {
   await createConnection({
     type: "postgres",
@@ -24,7 +25,7 @@ const main = async () => {
     password: process.env.DATABASE_PASSWORD,
     logging: true,
     synchronize: true,
-    entities: [User, Horse],
+    entities: [User, Horse, Appointment],
   });
 
   const app = express();
@@ -73,7 +74,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HorseResolver, UserResolver],
+      resolvers: [HorseResolver, UserResolver, AppointmentResolver],
       validate: false,
     }),
     context: ({ req, res }) => ({ req, res }),
