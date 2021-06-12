@@ -1,33 +1,33 @@
 import { InputType, Field } from "type-graphql";
 @InputType()
-export class HorseInput {
-  @Field()
+export class HorseUpdate {
+  @Field({ nullable: true })
   name!: string;
 
-  @Field()
+  @Field({ nullable: true })
   nickname: string;
 
-  @Field()
+  @Field({ nullable: true })
   owner!: string;
 
-  @Field()
+  @Field({ nullable: true })
   after!: string;
 
-  @Field()
+  @Field({ nullable: true })
   birthYear!: number;
 
-  @Field()
+  @Field({ nullable: true })
   gender!: string;
 
-  @Field()
+  @Field({ nullable: true })
   color!: string;
 
-  @Field()
+  @Field({ nullable: true })
   image!: string;
 
   @Field(() => [String!], { nullable: true })
   images!: string[];
 
-  @Field()
+  @Field({ nullable: true })
   category!: string;
 }

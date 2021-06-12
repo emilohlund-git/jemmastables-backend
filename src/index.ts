@@ -16,6 +16,8 @@ import { AppointmentResolver } from "./resolvers/appointment";
 import { HorseResolver } from "./resolvers/horse";
 import { UserResolver } from "./resolvers/user";
 
+
+//reload
 const main = async () => {
   await createConnection({
     type: "postgres",

@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   Column,
-  BaseEntity
+  BaseEntity,
 } from "typeorm";
 
 @ObjectType()
@@ -54,6 +54,10 @@ export class Horse extends BaseEntity {
   @Field()
   @Column()
   image!: string;
+
+  @Field(() => [String!], { nullable: true })
+  @Column("simple-array")
+  images!: string[];
 
   @Field()
   @Column()

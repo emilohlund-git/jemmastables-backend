@@ -1,7 +1,8 @@
-import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
-import { GetHorseArgs } from "../args/getHorseArgs";
+import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { getConnection } from "typeorm";
 import { Horse } from "../entities/Horse";
 import { HorseInput } from "./HorseInput";
+import { HorseUpdate } from "./HorseUpdate";
 
 @Resolver()
 export class HorseResolver {
@@ -32,36 +33,17 @@ export class HorseResolver {
     return Horse.create({ ...input }).save();
   }
 
-  @Mutation(() => Horse)
+  @Mutation(() => Horse, { nullable: true })
   async updateHorse(
-    @Arg("id") id: number,
-    @Args()
-    {
-      name,
-      nickname,
-      owner,
-      after,
-      birthYear,
-      gender,
-      color,
-      image,
-      category,
-    }: GetHorseArgs
+    @Arg("id", () => Int) id: number,
+    @Arg("input") input: HorseUpdate
   ): Promise<Horse | undefined> {
     const horse = await Horse.findOne(id);
     if (!horse) {
       return undefined;
-    }
-    if (typeof name !== "undefined") horse.name = name;
-    if (typeof nickname !== "undefined") horse.nickname = nickname;
-    if (typeof owner !== "undefined") horse.owner = owner;
-    if (typeof after !== "undefined") horse.after = after;
-    if (typeof birthYear !== "undefined") horse.birthYear = birthYear;
-    if (typeof gender !== "undefined") horse.gender = gender;
-    if (typeof color !== "undefined") horse.color = color;
-    if (typeof image !== "undefined") horse.image = image;
-    if (typeof category !== "undefined") horse.category = category;
-    Horse.update({ id }, { name });
+    } 
+    
+    Horse.update({ id }, { ...input });
     return horse;
   }
 
