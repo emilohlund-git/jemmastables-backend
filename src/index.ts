@@ -1,7 +1,6 @@
 import { ApolloServer } from "apollo-server-express";
 import pgSession from "connect-pg-simple";
 import cors from "cors";
-import "dotenv-safe/config";
 import express from "express";
 import session from "express-session";
 import process from "process";
@@ -15,6 +14,7 @@ import { User } from "./entities/User";
 import { AppointmentResolver } from "./resolvers/appointment";
 import { HorseResolver } from "./resolvers/horse";
 import { UserResolver } from "./resolvers/user";
+if (!__prod__) require("dotenv-safe/config");
 
 const main = async () => {
   await createConnection({
