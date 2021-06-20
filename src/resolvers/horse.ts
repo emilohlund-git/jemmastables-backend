@@ -1,5 +1,4 @@
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
-import { getConnection } from "typeorm";
 import { Horse } from "../entities/Horse";
 import { HorseInput } from "./HorseInput";
 import { HorseUpdate } from "./HorseUpdate";

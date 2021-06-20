@@ -16,8 +16,6 @@ import { AppointmentResolver } from "./resolvers/appointment";
 import { HorseResolver } from "./resolvers/horse";
 import { UserResolver } from "./resolvers/user";
 
-
-//reload
 const main = async () => {
   await createConnection({
     type: "postgres",
@@ -45,7 +43,7 @@ const main = async () => {
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     host: process.env.DATABASE_HOST,
-    port: process.env.PORT,
+    port: 5432,
     database: process.env.DATABASE,
   };
 
@@ -87,7 +85,7 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(4000, () => {
+  app.listen({ port: process.env.PORT || 4000 }, () => {
     console.log("Listening on localhost:4000");
   });
 };

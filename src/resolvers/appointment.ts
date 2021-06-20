@@ -11,6 +11,10 @@ class AppointmentInput {
   date: string;
   @Field()
   booked: boolean;
+  @Field()
+  bookedBy: string;
+  @Field()
+  type: string;
 }
 
 @Resolver()
@@ -41,14 +45,16 @@ export class AppointmentResolver {
   @Mutation(() => Appointment)
   async updateAppointment(
     @Arg("id") id: number,
-    @Arg("booked") booked: boolean
+    @Arg("booked") booked: boolean,
+    @Arg("bookedBy") bookedBy: string
   ): Promise<Appointment | undefined> {
     const appointment = await Appointment.findOne(id);
     if (!appointment) {
       return undefined;
     }
     if (typeof booked !== "undefined") appointment.booked = booked;
-    Appointment.update({ id }, { booked });
+    if (typeof bookedBy !== "undefined") appointment.bookedBy = bookedBy;
+    Appointment.update({ id }, { booked, bookedBy });
     return appointment;
   }
 }

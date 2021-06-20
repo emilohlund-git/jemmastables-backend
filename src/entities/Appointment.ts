@@ -32,10 +32,18 @@ export class Appointment extends BaseEntity {
   to!: string;
 
   @Field()
-  @Column({ unique: true })
+  @Column()
   date!: string;
 
   @Field(() => Boolean)
   @Column()
   booked!: Boolean;
+
+  @Field()
+  @Column()
+  bookedBy!: string;
+
+  @Field()
+  @Column({ nullable: true })
+  type!: string;
 }
